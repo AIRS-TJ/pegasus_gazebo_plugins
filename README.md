@@ -73,9 +73,46 @@ The following is a four-link closed-loop chain
 
 ## Here is the plugin version for gazebo 9.0.0
  [pegasus_gazebo_plugins_Gv9_v2.zip](https://github.com/wojiaojiao/pegasus_gazebo_plugins/files/3778918/pegasus_gazebo_plugins_Gv9_v2.zip)
- <br><br>Related reference：https://github.com/wojiaojiao/pegasus_gazebo_plugins/issues/3
 
 ## Bugs & Feature Requests
 Please report bugs and request features using the [Issue Tracker](https://github.com/wojiaojiao/pegasus_gazebo_plugins/issues).
+
+## another method
+
+You can as well enclose the "final" joint SDF code inside the gazebo tag of your URDF. Like this:
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robot">
+    ..your robot URDF code
+    <gazebo>
+        <joint name="differential_track_l_j" type="revolute">
+            <parent>left_track</parent>
+            <child>differential_arm_l</child>
+            <pose>0.07 0.05 0 0 0 0</pose>
+            <axis>
+                <xyz>0 1 0</xyz>
+                <limit>
+                    <lower>-1</lower>
+                    <upper>1</upper>
+                </limit>
+                <dynamics>
+                    <spring_reference>0</spring_reference>
+                    <spring_stiffness>0</spring_stiffness>
+                </dynamics>
+                <use_parent_model_frame>1</use_parent_model_frame>
+    
+            </axis>
+            <physics>
+                <ode>
+                    <implicit_spring_damper>1</implicit_spring_damper>
+                    <cfm_damping>1</cfm_damping>
+                    <limit>
+                        <cfm>0</cfm>
+                        <erp>0.2</erp>
+                    </limit>
+                </ode>
+            </physics>
+        </joint>
+    </gazebo>
+</robot>
 
 
