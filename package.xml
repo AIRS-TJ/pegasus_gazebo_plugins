@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package>
+  <name>pegasus_gazebo_plugins</name>
+  <version>0.0.1</version>
+  <description>pegasus_gazebo_pluginss</description>
+
+  <maintainer email="522483402@qq.com">jj</maintainer>
+
+  <license>BSD</license>
+
+  <author email="522483402@qq.com">jj</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+
+  <build_depend>gazebo_ros</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>control_toolbox</build_depend>
+
+
+  <run_depend>gazebo_ros</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>control_toolbox</run_depend>
+
+
+  <export>
+    <gazebo_ros plugin_path="${prefix}/lib" gazebo_media_path="${prefix}" />
+  </export>
+</package>
