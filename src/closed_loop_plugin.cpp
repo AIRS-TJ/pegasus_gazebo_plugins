@@ -16,7 +16,7 @@ ClosedLoopPlugin::ClosedLoopPlugin()
 
 ClosedLoopPlugin::~ClosedLoopPlugin()
 {
-  event::Events::DisconnectWorldUpdateBegin(this->updateConnection);
+  this->updateConnection.reset();
 
   kill_sim = true;
 }
@@ -26,7 +26,7 @@ void ClosedLoopPlugin::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf )
   ros::NodeHandle model_nh;
   model_ = _parent;
   world_ = model_->GetWorld();
-  physics_ = world_->GetPhysicsEngine();
+  physics_ = world_->Physics();
 
   // Error message if the model couldn't be found
   if (!model_)
@@ -158,7 +158,7 @@ std::vector<float> ClosedLoopPlugin::Convert_to_float(const std::vector<std::str
 
 void ClosedLoopPlugin::UpdateChild()
 {
-  static ros::Duration period(world_->GetPhysicsEngine()->GetMaxStepSize());
+  static ros::Duration period(world_->Physics()->GetMaxStepSize());
 
 }
 
